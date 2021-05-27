@@ -1,13 +1,66 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext.kotlin_version = "1.4.31"
+
+    ext {
+
+        // Global
+        compile_sdk = 30
+        build_tools = "30.0.3"
+        min_sdk = 23
+        target_sdk = 30
+        version_code = 1
+        version_name = "1.0"
+
+        // Dependencies
+        versions = [:]
+
+        // Common
+        versions.ktx_core = "1.5.0"
+        versions.appcompat = "1.3.0"
+        versions.material = "1.3.0"
+        versions.constraint = "2.0.4"
+        versions.kotlin = "1.4.31"
+        versions.gradle_build_tools = "4.2.0"
+        versions.coroutines_core = "1.4.2"
+
+        // Testing
+        versions.junit = "4.13.2"
+        versions.extjunit = "1.1.2"
+        versions.expresso_core = "3.3.0"
+
+        // Android
+        versions.ktx_activity = "1.1.0"
+        versions.lifecycle = "2.2.0"
+        versions.navigation = "2.3.3"
+        versions.firebase_bom = "26.6.0"
+        versions.fragment_ktx = "1.3.1"
+
+        // DI
+        versions.dagger_hilt = "2.31.2-alpha"
+        versions.dagger_hilt_lifecycle = "1.0.0-alpha03"
+
+        // Third party
+        versions.retrofit = "2.6.0"
+        versions.gson = "2.8.6"
+        versions.loggin_interceptor = "4.9.0"
+        versions.room = "2.2.5"
+        versions.ktlint_plugin = "9.4.1"
+        versions.glide = "4.12.0"
+        versions.gms_maps = "17.0.0"
+        versions.google_play_services = "4.3.5"
+        versions.crashlytics_plugin = "2.5.1"
+        versions.leku = "8.0.0"
+        versions.permission_dispatcher = "4.8.0"
+    }
+
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.2.0"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.android.tools.build:gradle:$versions.gradle_build_tools"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
