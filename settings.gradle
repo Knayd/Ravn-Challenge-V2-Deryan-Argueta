@@ -1,2 +1,4 @@
 rootProject.name = "ravn-code-challenge-v2-deryan-argueta"
 include ':app'
+include ':data'
+include ':domain'
