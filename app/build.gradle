@@ -65,3 +65,7 @@ dependencies {
     implementation "com.apollographql.apollo:apollo-runtime:$versions.apollo"
     implementation "com.apollographql.apollo:apollo-coroutines-support:$versions.apollo"
 }
+
+apollo {
+    generateKotlinModels.set(true)
+}
