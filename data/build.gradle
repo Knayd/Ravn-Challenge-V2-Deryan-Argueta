@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -43,4 +44,10 @@ dependencies {
     testImplementation "junit:junit:$versions.junit"
     androidTestImplementation "androidx.test.ext:junit:$versions.extjunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.expresso_core"
+
+    // Dependency Injection
+    implementation "com.google.dagger:hilt-android:$versions.dagger_hilt"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$versions.dagger_hilt_lifecycle"
+    kapt "androidx.hilt:hilt-compiler:$versions.dagger_hilt_lifecycle"
+    kapt "com.google.dagger:hilt-android-compiler:$versions.dagger_hilt"
 }

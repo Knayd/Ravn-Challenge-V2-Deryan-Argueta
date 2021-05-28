@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs'
     id "com.apollographql.apollo" version "2.5.7"
 }
@@ -64,6 +65,12 @@ dependencies {
     //Third party
     implementation "com.apollographql.apollo:apollo-runtime:$versions.apollo"
     implementation "com.apollographql.apollo:apollo-coroutines-support:$versions.apollo"
+
+    // Dependency Injection
+    implementation "com.google.dagger:hilt-android:$versions.dagger_hilt"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$versions.dagger_hilt_lifecycle"
+    kapt "androidx.hilt:hilt-compiler:$versions.dagger_hilt_lifecycle"
+    kapt "com.google.dagger:hilt-android-compiler:$versions.dagger_hilt"
 }
 
 apollo {
