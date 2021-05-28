@@ -23,6 +23,7 @@
     </style>
 
     <style name="Theme.Ravn.Text.H2">
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_size_h2</item>
     </style>
 

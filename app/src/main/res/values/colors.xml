@@ -12,4 +12,5 @@
     <color name="ravn_text_dark">#333333</color>
     <color name="ravn_text_light">#828282</color>
     <color name="ravn_text_emphasis">#EC5757</color>
+    <color name="ravn_mercury">#e5e5e5</color>
 </resources>
