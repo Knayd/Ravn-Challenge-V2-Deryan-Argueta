@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/peopleListFragment">
+
+    <fragment
+        android:id="@+id/peopleListFragment"
+        android:name="com.android.ravn.dargueta.ui.list.PeopleListFragment"
+        android:label="PeopleListFragment"
+        tools:layout="@layout/fragment_people_list">
+        <action
+            android:id="@+id/to_personDetailFragment"
+            app:destination="@id/personDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/personDetailFragment"
+        android:name="com.android.ravn.dargueta.ui.detail.PersonDetailFragment"
+        android:label="PersonDetailFragment"
+        tools:layout="@layout/fragment_person_detail" />
+</navigation>
