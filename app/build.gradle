@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
+    id "com.apollographql.apollo" version "2.5.7"
 }
 
 android {
@@ -59,4 +60,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
     implementation "androidx.fragment:fragment-ktx:$versions.fragment_ktx"
+
+    //Third party
+    implementation "com.apollographql.apollo:apollo-runtime:$versions.apollo"
+    implementation "com.apollographql.apollo:apollo-coroutines-support:$versions.apollo"
 }

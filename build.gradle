@@ -41,6 +41,7 @@ buildscript {
         versions.dagger_hilt_lifecycle = "1.0.0-alpha03"
 
         // Third party
+        versions.apollo = "2.5.7"
         versions.retrofit = "2.6.0"
         versions.gson = "2.8.6"
         versions.loggin_interceptor = "4.9.0"
