@@ -42,6 +42,8 @@ dependencies {
     implementation "androidx.core:core-ktx:$versions.ktx_core"
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "com.google.android.material:material:$versions.material"
+    implementation "androidx.paging:paging-runtime-ktx:$versions.paging"
+    
     testImplementation "junit:junit:$versions.junit"
     androidTestImplementation "androidx.test.ext:junit:$versions.extjunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.expresso_core"
