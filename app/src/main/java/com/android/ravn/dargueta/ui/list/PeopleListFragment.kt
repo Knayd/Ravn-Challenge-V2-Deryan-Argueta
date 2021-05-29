@@ -38,7 +38,7 @@ class PeopleListFragment : BaseFragment<FragmentPeopleListBinding>(
 
     private fun openDetails(person: Person) {
         findNavController().navigate(
-            PeopleListFragmentDirections.toPersonDetailFragment(person)
+            PeopleListFragmentDirections.toPersonDetailFragment(person, person.name)
         )
     }
 

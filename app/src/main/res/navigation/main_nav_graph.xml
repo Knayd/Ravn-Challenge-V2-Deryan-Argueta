@@ -21,10 +21,14 @@
     <fragment
         android:id="@+id/personDetailFragment"
         android:name="com.android.ravn.dargueta.ui.detail.PersonDetailFragment"
-        android:label="PersonDetailFragment"
+        android:label="{title}"
         tools:layout="@layout/fragment_person_detail">
         <argument
             android:name="person"
             app:argType="com.android.ravn.domain.model.Person" />
+        <argument
+            android:name="title"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>
