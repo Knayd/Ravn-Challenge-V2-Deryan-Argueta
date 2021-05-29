@@ -5,6 +5,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs'
     id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -64,7 +65,9 @@ dependencies {
 
     // Firebase
     implementation platform("com.google.firebase:firebase-bom:$versions.firebase_bom")
-    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
 
     // Dependency Injection
     implementation "com.google.dagger:hilt-android:$versions.dagger_hilt"

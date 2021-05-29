@@ -44,7 +44,7 @@ buildscript {
         // Third party
         versions.apollo = "2.5.7"
         versions.ktlint_plugin = "9.4.1"
-        versions.crashlytics_plugin = "2.5.1"
+        versions.crashlytics_plugin = "2.6.1"
         versions.google_services = "4.3.8"
         versions.firebase_bom = "28.0.1"
     }
@@ -63,6 +63,7 @@ buildscript {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$versions.dagger_hilt"
         classpath "com.google.gms:google-services:$versions.google_services"
+        classpath "com.google.firebase:firebase-crashlytics-gradle:$versions.crashlytics_plugin"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
