@@ -1,4 +1,4 @@
-package com.android.ravn.dargueta
+package com.android.ravn.dargueta.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.android.ravn.dargueta.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
