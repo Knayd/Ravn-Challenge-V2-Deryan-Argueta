@@ -43,17 +43,8 @@ buildscript {
 
         // Third party
         versions.apollo = "2.5.7"
-        versions.retrofit = "2.6.0"
-        versions.gson = "2.8.6"
-        versions.loggin_interceptor = "4.9.0"
-        versions.room = "2.2.5"
         versions.ktlint_plugin = "9.4.1"
-        versions.glide = "4.12.0"
-        versions.gms_maps = "17.0.0"
-        versions.google_play_services = "4.3.5"
         versions.crashlytics_plugin = "2.5.1"
-        versions.leku = "8.0.0"
-        versions.permission_dispatcher = "4.8.0"
     }
 
     repositories {
