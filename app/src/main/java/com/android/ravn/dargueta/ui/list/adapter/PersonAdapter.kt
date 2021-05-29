@@ -11,7 +11,8 @@ import com.android.ravn.data.util.ResourceManager
 import com.android.ravn.domain.model.Person
 
 class PersonAdapter(
-    private val resourceManager: ResourceManager
+    private val resourceManager: ResourceManager,
+    val onPersonClick: (person: Person) -> Unit
 ) :
     PagingDataAdapter<Person, PersonAdapter.PersonViewHolder>(PersonDiffCallback()) {
 
@@ -19,18 +20,20 @@ class PersonAdapter(
         PersonViewHolder(parent.inflate(R.layout.item_person))
 
     override fun onBindViewHolder(holder: PersonViewHolder, position: Int) {
-        val currentPerson = getItem(position)
-        holder.binding?.apply {
-            person = currentPerson
+        getItem(position)?.let { currentPerson ->
+            holder.binding?.apply {
+                person = currentPerson
+                root.setOnClickListener { onPersonClick.invoke(currentPerson) }
 
-            val species =
-                currentPerson?.species ?: resourceManager.getString(R.string.unknown_species)
+                val species =
+                    currentPerson.species ?: resourceManager.getString(R.string.unknown_species)
 
-            val planet =
-                currentPerson?.homeWorld ?: resourceManager.getString(R.string.unknown_planet)
+                val planet =
+                    currentPerson.homeWorld ?: resourceManager.getString(R.string.unknown_planet)
 
-            tvDescription.text =
-                resourceManager.getString(R.string.person_description, species, planet)
+                tvDescription.text =
+                    resourceManager.getString(R.string.person_description, species, planet)
+            }
         }
     }
 

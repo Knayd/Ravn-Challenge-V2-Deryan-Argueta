@@ -3,6 +3,7 @@ package com.android.ravn.dargueta.ui.list
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import com.android.ravn.dargueta.R
 import com.android.ravn.dargueta.base.BaseFragment
@@ -25,11 +26,19 @@ class PeopleListFragment : BaseFragment<FragmentPeopleListBinding>(
     lateinit var resourceManager: ResourceManager
 
     private val personAdapter: PersonAdapter by lazy {
-        PersonAdapter(resourceManager)
+        PersonAdapter(
+            resourceManager = resourceManager,
+            onPersonClick = { person -> openDetails(person) })
     }
 
     private val stateAdapter: PersonLoadStateAdapter by lazy {
         PersonLoadStateAdapter()
+    }
+
+    private fun openDetails(person: Person) {
+        findNavController().navigate(
+            PeopleListFragmentDirections.toPersonDetailFragment(person)
+        )
     }
 
     override fun onFragmentReady(savedInstanceState: Bundle?) {
