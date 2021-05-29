@@ -99,6 +99,10 @@ subprojects {
 
 tasks.detekt.jvmTarget = "1.8"
 
+tasks.withType(io.gitlab.arturbosch.detekt.Detekt) {
+    exclude("**/generated/**")
+}
+
 allprojects {
     repositories {
         google()
