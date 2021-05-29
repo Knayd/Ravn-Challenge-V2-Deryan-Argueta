@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -53,13 +54,17 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$versions.extjunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.expresso_core"
 
-    //Android dependencies
+    // Android dependencies
     implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
     implementation "androidx.activity:activity-ktx:$versions.ktx_activity"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
     implementation "androidx.fragment:fragment-ktx:$versions.fragment_ktx"
+
+    // Firebase
+    implementation platform("com.google.firebase:firebase-bom:$versions.firebase_bom")
+    implementation 'com.google.firebase:firebase-analytics'
 
     // Dependency Injection
     implementation "com.google.dagger:hilt-android:$versions.dagger_hilt"
