@@ -7,8 +7,8 @@ import com.android.ravn.data.paging.PersonSource
 import com.android.ravn.domain.model.Person
 import com.android.ravn.domain.repository.PersonRepository
 import com.apollographql.apollo.ApolloClient
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 class PersonRepositoryImpl @Inject constructor(
     private val apolloClient: ApolloClient

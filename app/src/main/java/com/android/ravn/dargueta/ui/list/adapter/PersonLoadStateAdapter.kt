@@ -29,5 +29,4 @@ class PersonLoadStateAdapter :
             binding?.setLoadingState(loadState)
         }
     }
-
 }

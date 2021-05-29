@@ -15,11 +15,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        (supportFragmentManager.findFragmentById(R.id.nav_host_main) as NavHostFragment).let { navHostFragment ->
-            val navController = navHostFragment.navController
-            val config = AppBarConfiguration(navController.graph)
-            findViewById<Toolbar>(R.id.toolbar_main)
-                .setupWithNavController(navController, config)
-        }
+        (supportFragmentManager.findFragmentById(R.id.nav_host_main) as NavHostFragment)
+            .let { navHost ->
+                val navController = navHost.navController
+                val config = AppBarConfiguration(navController.graph)
+                findViewById<Toolbar>(R.id.toolbar_main)
+                    .setupWithNavController(navController, config)
+            }
     }
 }

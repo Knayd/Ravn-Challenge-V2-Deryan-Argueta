@@ -21,7 +21,6 @@ class PersonDetailViewModel @Inject constructor(
     }
 
     private fun getGeneralInfoRows(person: Person): List<TextRow> {
-
         val infoTitle = TextRow.Title(text = resources.getString(R.string.general_info_title))
 
         val eyeColor = TextRow.Content(

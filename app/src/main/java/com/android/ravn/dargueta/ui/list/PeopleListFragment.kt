@@ -29,7 +29,8 @@ class PeopleListFragment : BaseFragment<FragmentPeopleListBinding>(
     private val personAdapter: PersonAdapter by lazy {
         PersonAdapter(
             resourceManager = resourceManager,
-            onPersonClick = { person -> openDetails(person) })
+            onPersonClick = { person -> openDetails(person) }
+        )
     }
 
     private val stateAdapter: PersonLoadStateAdapter by lazy {

@@ -15,5 +15,4 @@ abstract class InteractionModule {
     abstract fun bindGetPeopleUseCase(
         getPeopleUseCaseImpl: GetPeopleUseCaseImpl
     ): GetPeopleUseCase
-
 }

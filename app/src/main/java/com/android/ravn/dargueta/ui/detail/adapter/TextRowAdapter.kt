@@ -21,7 +21,6 @@ class TextRowAdapter : ListAdapter<TextRow, RecyclerView.ViewHolder>(TextRowDiff
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
         (holder as? TitleViewHolder)?.let {
             val currentItem = getItem(position) as TextRow.Title
             holder.binding?.tvTitle?.text = currentItem.text
@@ -36,7 +35,6 @@ class TextRowAdapter : ListAdapter<TextRow, RecyclerView.ViewHolder>(TextRowDiff
         }
     }
 
-
     override fun getItemViewType(position: Int) = when (getItem(position)) {
         is TextRow.Content -> TYPE_CONTENT
         is TextRow.Title -> TYPE_TITLE
@@ -50,5 +48,4 @@ class TextRowAdapter : ListAdapter<TextRow, RecyclerView.ViewHolder>(TextRowDiff
     inner class TitleViewHolder(view: View) : BaseViewHolder<ItemTextRowTitleBinding>(view)
 
     inner class ContentViewHolder(view: View) : BaseViewHolder<ItemTextRowContentBinding>(view)
-
 }

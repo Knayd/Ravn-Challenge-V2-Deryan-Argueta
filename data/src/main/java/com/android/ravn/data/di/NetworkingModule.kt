@@ -21,7 +21,6 @@ object NetworkingModule {
     fun provideApolloClient(
         @ApplicationContext context: Context
     ): ApolloClient {
-
         val factory = SqlNormalizedCacheFactory(context, DATABASE_NAME)
 
         return ApolloClient.builder()
