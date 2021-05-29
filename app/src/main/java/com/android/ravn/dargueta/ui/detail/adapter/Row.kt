@@ -1,4 +1,4 @@
-package com.android.ravn.dargueta.ui.textrow
+package com.android.ravn.dargueta.ui.detail.adapter
 
 sealed class TextRow {
     data class Title(val text: String) : TextRow()

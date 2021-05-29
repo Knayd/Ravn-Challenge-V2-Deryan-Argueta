@@ -2,7 +2,7 @@ package com.android.ravn.dargueta.ui.detail
 
 import androidx.lifecycle.ViewModel
 import com.android.ravn.dargueta.R
-import com.android.ravn.dargueta.ui.textrow.TextRow
+import com.android.ravn.dargueta.ui.detail.adapter.TextRow
 import com.android.ravn.data.util.ResourceManager
 import com.android.ravn.domain.model.Person
 import dagger.hilt.android.lifecycle.HiltViewModel
