@@ -5,7 +5,6 @@ import com.android.ravn.domain.repository.PersonRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.components.ViewModelComponent
 
 @Module
