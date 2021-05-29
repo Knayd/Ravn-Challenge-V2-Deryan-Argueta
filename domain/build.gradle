@@ -43,6 +43,9 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$versions.extjunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.expresso_core"
 
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines_core"
+
     // Dependency Injection
     implementation "com.google.dagger:hilt-android:$versions.dagger_hilt"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$versions.dagger_hilt_lifecycle"
