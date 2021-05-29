@@ -8,32 +8,34 @@ import com.android.ravn.dargueta.R
 import com.android.ravn.dargueta.base.BaseViewHolder
 import com.android.ravn.dargueta.databinding.ItemTextRowContentBinding
 import com.android.ravn.dargueta.databinding.ItemTextRowTitleBinding
-import com.android.ravn.dargueta.ui.textrow.TextRow
 import com.android.ravn.dargueta.util.inflate
 import com.android.ravn.dargueta.util.visibleIfNotNullNorEmpty
 
 class TextRowAdapter : ListAdapter<TextRow, RecyclerView.ViewHolder>(TextRowDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == TYPE_TITLE) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        if (viewType == TYPE_TITLE) {
             TitleViewHolder(parent.inflate(R.layout.item_text_row_title))
         } else {
             ContentViewHolder(parent.inflate(R.layout.item_text_row_content))
         }
-    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
         (holder as? TitleViewHolder)?.let {
             val currentItem = getItem(position) as TextRow.Title
             holder.binding?.tvTitle?.text = currentItem.text
-        } ?: run {
-            (holder as? ContentViewHolder)?.let {
-                val currentItem = getItem(position) as TextRow.Content
-                holder.binding?.tvRowText1?.visibleIfNotNullNorEmpty(currentItem.text1)
-                holder.binding?.tvRowText2?.visibleIfNotNullNorEmpty(currentItem.text2)
+        }
+
+        (holder as? ContentViewHolder)?.let {
+            val currentItem = getItem(position) as TextRow.Content
+            holder.binding?.apply {
+                tvRowText1.visibleIfNotNullNorEmpty(currentItem.text1)
+                tvRowText2.visibleIfNotNullNorEmpty(currentItem.text2)
             }
         }
     }
+
 
     override fun getItemViewType(position: Int) = when (getItem(position)) {
         is TextRow.Content -> TYPE_CONTENT
