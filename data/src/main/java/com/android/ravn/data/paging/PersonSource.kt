@@ -26,11 +26,16 @@ class PersonSource(
             return LoadResult.Error(exception)
         }
 
-        val pageInfo = people.data?.allPeople?.pageInfo
-        val data = people.data?.allPeople?.people?.filterNotNull()
+        val pageInfo: PeopleListQuery.PageInfo?
+        val data: List<PeopleListQuery.Person>
+
+        people.data?.allPeople.apply {
+            pageInfo = this?.pageInfo
+            data = this?.people?.filterNotNull() ?: listOf()
+        }
 
         return LoadResult.Page(
-            data = data?.map { PersonMapper(it).toDomainModel() } ?: listOf(),
+            data = data.map { PersonMapper(it).toDomainModel() },
             prevKey = null,
             nextKey = pageInfo?.endCursor
         )
@@ -38,4 +43,3 @@ class PersonSource(
 
     override fun getRefreshKey(state: PagingState<String, Person>): String? = null
 }
-
