@@ -1,4 +1,4 @@
-package com.android.ravn.dargueta.ui.list.adapter.state
+package com.android.ravn.dargueta.ui.list.adapter
 
 import android.view.View
 import android.view.ViewGroup

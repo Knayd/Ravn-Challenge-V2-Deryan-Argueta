@@ -7,8 +7,8 @@ import androidx.paging.PagingData
 import com.android.ravn.dargueta.R
 import com.android.ravn.dargueta.base.BaseFragment
 import com.android.ravn.dargueta.databinding.FragmentPeopleListBinding
-import com.android.ravn.dargueta.ui.list.adapter.person.PersonAdapter
-import com.android.ravn.dargueta.ui.list.adapter.state.PersonLoadStateAdapter
+import com.android.ravn.dargueta.ui.list.adapter.PersonAdapter
+import com.android.ravn.dargueta.ui.list.adapter.PersonLoadStateAdapter
 import com.android.ravn.domain.model.Person
 import dagger.hilt.android.AndroidEntryPoint
 
