@@ -1,0 +1,20 @@
+query PeopleList($first: Int, $after: String) {
+  allPeople(first: $first, after: $after) {
+    people {
+      id
+      name
+      homeworld {
+        name
+      }
+      species {
+        name
+      }
+    }
+    pageInfo {
+      startCursor
+      endCursor
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}
