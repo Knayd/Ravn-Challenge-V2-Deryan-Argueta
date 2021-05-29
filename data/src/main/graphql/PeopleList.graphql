@@ -9,6 +9,11 @@ query PeopleList($first: Int, $after: String) {
       species {
         name
       }
+      vehicleConnection {
+        vehicles {
+          name
+        }
+      }
     }
     pageInfo {
       startCursor
