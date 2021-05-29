@@ -42,6 +42,7 @@ dependencies {
     testImplementation "junit:junit:$versions.junit"
     androidTestImplementation "androidx.test.ext:junit:$versions.extjunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.expresso_core"
+    implementation "androidx.paging:paging-runtime-ktx:$versions.paging"
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines_core"
