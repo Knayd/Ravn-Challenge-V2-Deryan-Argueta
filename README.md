@@ -3,7 +3,7 @@
 ## Setup/Running
 Just clone the repo and then build it.
 
-## Descripction
+## Description
 Kotlin application that consumes [Star Wars GraphQL API](https://swapi-graphql.netlify.app/) using [Apollo client](https://www.apollographql.com/docs/android/) and [Android's Paging](https://developer.android.com/topic/libraries/architecture/paging/v3-overview) library.
 The application displays a paginated list of people and shows a detail if any of those people are tapped.
 
