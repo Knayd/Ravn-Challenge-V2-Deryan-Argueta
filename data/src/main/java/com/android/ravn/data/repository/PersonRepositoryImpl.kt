@@ -3,7 +3,7 @@ package com.android.ravn.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.android.ravn.data.paging.PersonSource
+import com.android.ravn.data.source.PersonSource
 import com.android.ravn.domain.model.Person
 import com.android.ravn.domain.repository.PersonRepository
 import com.apollographql.apollo.ApolloClient

@@ -1,4 +1,4 @@
-package com.android.ravn.data.paging
+package com.android.ravn.data.source
 
 import PeopleListQuery
 import androidx.paging.PagingSource
