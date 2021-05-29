@@ -17,6 +17,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        buildConfigField("String", "BASE_URL", "\"${BASE_URL}\"")
     }
 
     buildTypes {
@@ -42,7 +44,7 @@ dependencies {
     implementation "androidx.core:core-ktx:$versions.ktx_core"
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "com.google.android.material:material:$versions.material"
-    implementation "androidx.paging:paging-runtime-ktx:$versions.paging"
+    api "androidx.paging:paging-runtime-ktx:$versions.paging"
     
     testImplementation "junit:junit:$versions.junit"
     androidTestImplementation "androidx.test.ext:junit:$versions.extjunit"
