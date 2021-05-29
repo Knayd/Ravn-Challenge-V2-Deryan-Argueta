@@ -5,4 +5,13 @@
     <string name="person_description">%1s from %2s</string>
     <string name="unknown_species">Unknown species</string>
     <string name="unknown_planet">Unknown planet</string>
+
+    <string name="general_info_title">General Information</string>
+    <string name="vehicles_title">Vehicles</string>
+
+    <string name="eye_color_label">Eye Color</string>
+    <string name="hair_color_label">Hair Color</string>
+    <string name="skin_color_label">Skin Color</string>
+    <string name="birth_year_label">Birth Year</string>
+
 </resources>
