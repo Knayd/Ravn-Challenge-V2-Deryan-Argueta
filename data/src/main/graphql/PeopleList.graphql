@@ -3,6 +3,10 @@ query PeopleList($first: Int, $after: String) {
     people {
       id
       name
+      birthYear
+      skinColor
+      hairColor
+      eyeColor
       homeworld {
         name
       }

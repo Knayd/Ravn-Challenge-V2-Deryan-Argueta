@@ -12,7 +12,11 @@ class PersonMapper(
         id = person.id,
         name = person.name,
         species = person.species?.name,
+        hairColor = person.hairColor,
+        eyeColor = person.eyeColor,
+        birthYear = person.birthYear,
+        skinColor = person.skinColor,
         homeWorld = person.homeworld?.name,
-        vehicles = null
+        vehicles = person.vehicleConnection?.vehicles?.mapNotNull { it?.name },
     )
 }
