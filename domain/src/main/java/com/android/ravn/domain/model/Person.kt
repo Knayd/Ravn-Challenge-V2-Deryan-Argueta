@@ -4,6 +4,6 @@ data class Person(
     val id: String?,
     val name: String?,
     val species: String?,
-    val homeTown: String?,
+    val homeWorld: String?,
     val vehicles: List<String>?
 )

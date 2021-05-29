@@ -33,14 +33,14 @@ class PersonRepositoryImpl @Inject constructor(
                 id = "1",
                 name = "Name 1",
                 species = "Species 1",
-                homeTown = "HomeTown 1",
+                homeWorld = "HomeTown 1",
                 vehicles = null
             ),
             Person(
                 id = "2",
                 name = "Name 2",
                 species = "Species 2",
-                homeTown = "HomeTown 2",
+                homeWorld = "HomeTown 2",
                 vehicles = null
             )
         )
