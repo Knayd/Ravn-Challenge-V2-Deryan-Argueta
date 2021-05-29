@@ -26,4 +26,4 @@ It also has Firebase/Crashlytics integration and a couple of functions to check 
   - Firebase/Crashlytics
 
 ## Demo
-![demo](https://imgur.com/a/zzKLnxB.gif)
+https://imgur.com/a/zzKLnxB
