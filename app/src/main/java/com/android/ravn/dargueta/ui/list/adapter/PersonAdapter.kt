@@ -7,16 +7,31 @@ import com.android.ravn.dargueta.R
 import com.android.ravn.dargueta.base.BaseViewHolder
 import com.android.ravn.dargueta.databinding.ItemPersonBinding
 import com.android.ravn.dargueta.util.inflate
+import com.android.ravn.data.util.ResourceManager
 import com.android.ravn.domain.model.Person
 
-class PersonAdapter :
+class PersonAdapter(
+    private val resourceManager: ResourceManager
+) :
     PagingDataAdapter<Person, PersonAdapter.PersonViewHolder>(PersonDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         PersonViewHolder(parent.inflate(R.layout.item_person))
 
     override fun onBindViewHolder(holder: PersonViewHolder, position: Int) {
-        holder.binding?.person = getItem(position)
+        val currentPerson = getItem(position)
+        holder.binding?.apply {
+            person = currentPerson
+
+            val species =
+                currentPerson?.species ?: resourceManager.getString(R.string.unknown_species)
+
+            val planet =
+                currentPerson?.homeWorld ?: resourceManager.getString(R.string.unknown_planet)
+
+            tvDescription.text =
+                resourceManager.getString(R.string.person_description, species, planet)
+        }
     }
 
     inner class PersonViewHolder(view: View) : BaseViewHolder<ItemPersonBinding>(view)

@@ -9,8 +9,10 @@ import com.android.ravn.dargueta.base.BaseFragment
 import com.android.ravn.dargueta.databinding.FragmentPeopleListBinding
 import com.android.ravn.dargueta.ui.list.adapter.PersonAdapter
 import com.android.ravn.dargueta.ui.list.adapter.PersonLoadStateAdapter
+import com.android.ravn.data.util.ResourceManager
 import com.android.ravn.domain.model.Person
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PeopleListFragment : BaseFragment<FragmentPeopleListBinding>(
@@ -19,8 +21,11 @@ class PeopleListFragment : BaseFragment<FragmentPeopleListBinding>(
 
     override val viewModel: PeopleListViewModel by viewModels()
 
+    @Inject
+    lateinit var resourceManager: ResourceManager
+
     private val personAdapter: PersonAdapter by lazy {
-        PersonAdapter()
+        PersonAdapter(resourceManager)
     }
 
     private val stateAdapter: PersonLoadStateAdapter by lazy {
