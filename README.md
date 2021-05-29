@@ -13,8 +13,8 @@ The project consists of 3 modules:
 - Domain (Abstraction layer of data sources)
 
 It also has Firebase/Crashlytics integration and a couple of functions to check code formatting and code smells:
-./gradlew ktlintCheck
-./gradlew detekt
+- ./gradlew ktlintCheck
+- ./gradlew detekt
 
 ## Technologies used
   - Hilt (Dependency Injection)
