@@ -2,13 +2,13 @@ package com.android.ravn.dargueta.ui.list.adapter
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import com.android.ravn.dargueta.R
 import com.android.ravn.dargueta.base.BaseViewHolder
 import com.android.ravn.dargueta.databinding.ItemLoadingFooterBinding
 import com.android.ravn.dargueta.util.inflate
+import com.android.ravn.dargueta.util.setLoadingState
 
 class PersonLoadStateAdapter :
     LoadStateAdapter<PersonLoadStateAdapter.PersonLoadStateViewHolder>() {
@@ -26,13 +26,7 @@ class PersonLoadStateAdapter :
         BaseViewHolder<ItemLoadingFooterBinding>(view) {
 
         fun bind(loadState: LoadState) {
-            val isError = loadState is LoadState.Error
-            binding?.apply {
-                tvErrorLabel.isVisible = isError
-                tvLoadingLabel.isVisible = isError.not()
-                piLoading.isVisible = isError.not()
-
-            }
+            binding?.setLoadingState(loadState)
         }
     }
 

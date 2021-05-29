@@ -10,6 +10,7 @@ import com.android.ravn.dargueta.base.BaseFragment
 import com.android.ravn.dargueta.databinding.FragmentPeopleListBinding
 import com.android.ravn.dargueta.ui.list.adapter.PersonAdapter
 import com.android.ravn.dargueta.ui.list.adapter.PersonLoadStateAdapter
+import com.android.ravn.dargueta.util.setLoadingState
 import com.android.ravn.data.util.ResourceManager
 import com.android.ravn.domain.model.Person
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,9 +43,12 @@ class PeopleListFragment : BaseFragment<FragmentPeopleListBinding>(
     }
 
     override fun onFragmentReady(savedInstanceState: Bundle?) {
-        binding.rvPeople.adapter = personAdapter.withLoadStateFooter(
-            footer = stateAdapter
-        )
+        binding.rvPeople.adapter = personAdapter.apply {
+            withLoadStateFooter(footer = stateAdapter)
+            addLoadStateListener { loadState ->
+                binding.layoutLoading.setLoadingState(loadState.source.refresh)
+            }
+        }
         viewModel.people.observe(viewLifecycleOwner, getPeopleObserver())
     }
 

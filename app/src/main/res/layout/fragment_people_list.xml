@@ -27,5 +27,9 @@
             tools:itemCount="5"
             tools:listitem="@layout/item_person" />
 
+        <include
+            android:id="@+id/layout_loading"
+            layout="@layout/item_loading_footer" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

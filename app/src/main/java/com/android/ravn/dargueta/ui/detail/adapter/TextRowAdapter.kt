@@ -9,8 +9,8 @@ import com.android.ravn.dargueta.base.BaseViewHolder
 import com.android.ravn.dargueta.databinding.ItemTextRowContentBinding
 import com.android.ravn.dargueta.databinding.ItemTextRowTitleBinding
 import com.android.ravn.dargueta.ui.textrow.TextRow
-import com.android.ravn.dargueta.util.BindingAdapter.visibleIfNotNullNorEmpty
 import com.android.ravn.dargueta.util.inflate
+import com.android.ravn.dargueta.util.visibleIfNotNullNorEmpty
 
 class TextRowAdapter : ListAdapter<TextRow, RecyclerView.ViewHolder>(TextRowDiffCallback()) {
 
