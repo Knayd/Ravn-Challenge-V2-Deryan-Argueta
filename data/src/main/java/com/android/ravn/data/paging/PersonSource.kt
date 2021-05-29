@@ -9,6 +9,7 @@ import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Input
 import com.apollographql.apollo.coroutines.await
 import com.apollographql.apollo.exception.ApolloException
+import com.apollographql.apollo.fetcher.ApolloResponseFetchers
 
 class PersonSource(
     private val apolloClient: ApolloClient
@@ -21,7 +22,10 @@ class PersonSource(
                     first = Input.fromNullable(params.loadSize),
                     after = Input.optional(params.key)
                 )
-            ).await()
+            ).toBuilder()
+                .responseFetcher(ApolloResponseFetchers.CACHE_AND_NETWORK)
+                .build()
+                .await()
         } catch (exception: ApolloException) {
             return LoadResult.Error(exception)
         }

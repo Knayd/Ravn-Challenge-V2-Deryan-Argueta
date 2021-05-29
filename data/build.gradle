@@ -53,6 +53,7 @@ dependencies {
     //Third party
     api "com.apollographql.apollo:apollo-runtime:$versions.apollo"
     api "com.apollographql.apollo:apollo-coroutines-support:$versions.apollo"
+    api "com.apollographql.apollo:apollo-normalized-cache-sqlite:$versions.apollo"
 
     // Dependency Injection
     implementation "com.google.dagger:hilt-android:$versions.dagger_hilt"
