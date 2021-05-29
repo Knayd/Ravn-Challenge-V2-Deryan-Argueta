@@ -13,9 +13,17 @@ class PersonDetailViewModel @Inject constructor(
     private val resources: ResourceManager
 ) : ViewModel() {
 
-    fun createTextRows(person: Person): List<TextRow> {
+    fun getTextRows(person: Person): List<TextRow> {
+        val rows = arrayListOf<TextRow>()
+        rows.addAll(getGeneralInfoRows(person))
+        rows.addAll(getVehicleRows(person))
+        return rows
+    }
+
+    private fun getGeneralInfoRows(person: Person): List<TextRow> {
 
         val infoTitle = TextRow.Title(text = resources.getString(R.string.general_info_title))
+
         val eyeColor = TextRow.Content(
             text1 = resources.getString(R.string.eye_color_label),
             text2 = person.eyeColor
@@ -33,26 +41,25 @@ class PersonDetailViewModel @Inject constructor(
             text2 = person.birthYear
         )
 
-        val rows = arrayListOf(
-            infoTitle,
-            eyeColor,
-            hairColor,
-            skinColor,
-            birthYear
-        )
+        return listOf(infoTitle, eyeColor, hairColor, skinColor, birthYear)
+    }
+
+    private fun getVehicleRows(person: Person): List<TextRow> {
+        val vehicles = arrayListOf<TextRow>()
 
         val vehiclesTitle = TextRow.Title(text = resources.getString(R.string.vehicles_title))
-        val vehicles = arrayListOf<TextRow>()
 
         person.vehicles?.forEach { vehicleName ->
             vehicles.add(TextRow.Content(text1 = vehicleName))
         }
 
-        if (vehicles.isNullOrEmpty().not()) {
-            rows.add(vehiclesTitle)
-            rows.addAll(vehicles)
-        }
+        // If person has vehicles, add the title at the start of the list
+        return if (vehicles.isNullOrEmpty().not()) vehicles.apply {
+            add(index = FIRST_INDEX, element = vehiclesTitle)
+        } else listOf()
+    }
 
-        return rows
+    companion object {
+        private const val FIRST_INDEX = 0
     }
 }

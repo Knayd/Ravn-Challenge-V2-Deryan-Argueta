@@ -22,7 +22,7 @@ class PersonDetailFragment : BaseFragment<FragmentPersonDetailBinding>(
     private val args: PersonDetailFragmentArgs by navArgs()
 
     override fun onFragmentReady(savedInstanceState: Bundle?) {
-        val rows = viewModel.createTextRows(args.person)
+        val rows = viewModel.getTextRows(args.person)
         binding.rvRows.adapter = adapter
         adapter.submitList(rows)
     }
