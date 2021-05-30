@@ -13,5 +13,6 @@
     <string name="hair_color_label">Hair Color</string>
     <string name="skin_color_label">Skin Color</string>
     <string name="birth_year_label">Birth Year</string>
+    <string name="no_results_found">No results found</string>
 
 </resources>

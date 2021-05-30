@@ -34,6 +34,7 @@ class PeopleListFragment : BaseFragment<FragmentPeopleListBinding>(
     }
 
     private val stateAdapter: PersonLoadStateAdapter by lazy {
+    private val loadStateAdapter: PersonLoadStateAdapter by lazy {
         PersonLoadStateAdapter()
     }
 
@@ -45,9 +46,10 @@ class PeopleListFragment : BaseFragment<FragmentPeopleListBinding>(
 
     override fun onFragmentReady(savedInstanceState: Bundle?) {
         binding.rvPeople.adapter = personAdapter.apply {
-            withLoadStateFooter(footer = stateAdapter)
+            withLoadStateFooter(footer = loadStateAdapter)
             addLoadStateListener { loadState ->
                 binding.layoutLoading.setLoadingState(loadState.source.refresh)
+                binding.tvEmptyState.isVisible = loadState.source.refresh is LoadState.NotLoading
             }
         }
         viewModel.people.observe(viewLifecycleOwner, getPeopleObserver())
