@@ -56,8 +56,8 @@ class PeopleListFragment : BaseFragment<FragmentPeopleListBinding>(
             // Setting listener in order to display loading/error message
             // or an empty state when there are no results
             binding.layoutLoading.setLoadingState(loadState.refresh)
-            val isListEmpty = loadState.refresh is LoadState.NotLoading &&
-                    personAdapter.itemCount == EMPTY_RESULT
+            val isListEmpty =
+                loadState.refresh is LoadState.NotLoading && personAdapter.itemCount == EMPTY_RESULT
             binding.tvEmptyState.isVisible = isListEmpty
         }
     }
@@ -69,6 +69,6 @@ class PeopleListFragment : BaseFragment<FragmentPeopleListBinding>(
     }
 
     companion object {
-        private val EMPTY_RESULT = 0
+        private const val EMPTY_RESULT = 0
     }
 }
