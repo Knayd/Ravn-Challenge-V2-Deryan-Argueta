@@ -51,16 +51,14 @@ class PeopleListFragment : BaseFragment<FragmentPeopleListBinding>(
 
     override fun onFragmentReady(savedInstanceState: Bundle?) {
         viewModel.people.observe(viewLifecycleOwner, getPeopleObserver())
-        binding.rvPeople.adapter = personAdapter .apply {
-            withLoadStateFooter(footer = loadStateAdapter)
-            addLoadStateListener { loadState ->
-                // Setting listener in order to display loading/error message
-                // or an empty state when there are no results
-                binding.layoutLoading.setLoadingState(loadState.refresh)
-                val isListEmpty = loadState.refresh is LoadState.NotLoading &&
-                        personAdapter.itemCount == EMPTY_RESULT
-                binding.tvEmptyState.isVisible = isListEmpty
-            }
+        binding.rvPeople.adapter = personAdapter.withLoadStateFooter(footer = loadStateAdapter)
+        personAdapter.addLoadStateListener { loadState ->
+            // Setting listener in order to display loading/error message
+            // or an empty state when there are no results
+            binding.layoutLoading.setLoadingState(loadState.refresh)
+            val isListEmpty = loadState.refresh is LoadState.NotLoading &&
+                    personAdapter.itemCount == EMPTY_RESULT
+            binding.tvEmptyState.isVisible = isListEmpty
         }
     }
 
