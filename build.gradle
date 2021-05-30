@@ -47,6 +47,9 @@ buildscript {
         versions.crashlytics_plugin = "2.6.1"
         versions.google_services = "4.3.8"
         versions.firebase_bom = "28.0.1"
+
+        // Testing
+        versions.mockito_core = "3.10.0"
     }
 
     repositories {

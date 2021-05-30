@@ -53,4 +53,7 @@ dependencies {
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$versions.dagger_hilt_lifecycle"
     kapt "androidx.hilt:hilt-compiler:$versions.dagger_hilt_lifecycle"
     kapt "com.google.dagger:hilt-android-compiler:$versions.dagger_hilt"
+
+    // Testing
+    testImplementation "org.mockito:mockito-core:$versions.mockito_core"
 }
