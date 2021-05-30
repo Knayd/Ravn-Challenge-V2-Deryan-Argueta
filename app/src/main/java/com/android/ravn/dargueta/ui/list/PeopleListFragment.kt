@@ -1,9 +1,11 @@
 package com.android.ravn.dargueta.ui.list
 
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.paging.PagingData
 import com.android.ravn.dargueta.R
 import com.android.ravn.dargueta.base.BaseFragment
@@ -33,7 +35,10 @@ class PeopleListFragment : BaseFragment<FragmentPeopleListBinding>(
         )
     }
 
-    private val stateAdapter: PersonLoadStateAdapter by lazy {
+    /**
+     * Helper adapter to display either a loading or error message when doing pagination.
+     * */
+
     private val loadStateAdapter: PersonLoadStateAdapter by lazy {
         PersonLoadStateAdapter()
     }
@@ -48,6 +53,8 @@ class PeopleListFragment : BaseFragment<FragmentPeopleListBinding>(
         binding.rvPeople.adapter = personAdapter.apply {
             withLoadStateFooter(footer = loadStateAdapter)
             addLoadStateListener { loadState ->
+                // Setting listener in order to display loading/error message
+                // or an empty state when there are no results
                 binding.layoutLoading.setLoadingState(loadState.source.refresh)
                 binding.tvEmptyState.isVisible = loadState.source.refresh is LoadState.NotLoading
             }
