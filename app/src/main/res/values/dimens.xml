@@ -7,5 +7,6 @@
     <dimen name="item_arrow_margin">24dp</dimen>
     <dimen name="item_text_title_margin_top">32dp</dimen>
     <dimen name="item_text_title_margin_bottom">8dp</dimen>
+    <dimen name="item_divider_thickness">1dp</dimen>
 
 </resources>

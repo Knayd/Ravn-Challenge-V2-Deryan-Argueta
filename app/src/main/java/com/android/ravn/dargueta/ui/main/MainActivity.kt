@@ -8,15 +8,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -28,12 +29,16 @@ import com.android.ravn.dargueta.ui.list.PeopleListViewModel
 import com.android.ravn.domain.model.Person
 import dagger.hilt.android.AndroidEntryPoint
 
+//TODO: Move dp values into a separate file and fix colors
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            PeopleListScreen()
+            PeopleOfStarWarsTheme {
+                PeopleListScreen()
+            }
         }
 //        setContentView(R.layout.activity_main)
 //
@@ -68,6 +73,14 @@ fun PeopleList(modifier: Modifier = Modifier, people: LazyPagingItems<Person>) {
             val description = stringResource(R.string.person_description, species, planet)
 
             PersonItem(name = person?.name ?: "", description = description)
+            Divider(
+                modifier = Modifier.padding(
+                    start = dimensionResource(R.dimen.item_text_margin),
+                    end = dimensionResource(R.dimen.item_text_margin)
+                ),
+                color = MaterialTheme.colors.primary,
+                thickness = dimensionResource(R.dimen.item_divider_thickness)
+            )
         }
     }
 }
@@ -88,14 +101,22 @@ fun PersonItem(modifier: Modifier = Modifier, name: String, description: String)
         ) {
             Text(
                 modifier = Modifier
-                    .padding(start = 16.dp, top = 16.dp, end = 16.dp)
+                    .padding(
+                        start = dimensionResource(R.dimen.item_text_margin),
+                        top = dimensionResource(R.dimen.item_text_margin),
+                        end = dimensionResource(R.dimen.item_text_margin)
+                    )
                     .fillMaxWidth(),
                 style = MaterialTheme.typography.h6,
                 text = name
             )
             Text(
                 modifier = Modifier
-                    .padding(start = 16.dp, bottom = 16.dp, end = 16.dp)
+                    .padding(
+                        start = dimensionResource(R.dimen.item_text_margin),
+                        bottom = dimensionResource(R.dimen.item_text_margin),
+                        end = dimensionResource(R.dimen.item_text_margin)
+                    )
                     .fillMaxWidth(),
                 style = MaterialTheme.typography.subtitle1,
                 text = description
@@ -103,7 +124,7 @@ fun PersonItem(modifier: Modifier = Modifier, name: String, description: String)
         }
         Image(
             modifier = Modifier
-                .padding(end = 24.dp)
+                .padding(end = dimensionResource(R.dimen.item_arrow_margin))
                 .constrainAs(image) {
                     top.linkTo(parent.top)
                     start.linkTo(column.end)
