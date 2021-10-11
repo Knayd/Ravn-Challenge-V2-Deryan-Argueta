@@ -96,5 +96,7 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.0.1'
     // Constraint layout
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02"
+    // Paging
+    implementation "androidx.paging:paging-compose:1.0.0-alpha13"
 
 }
