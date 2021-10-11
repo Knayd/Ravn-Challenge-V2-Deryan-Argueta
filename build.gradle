@@ -5,7 +5,7 @@ buildscript {
     ext {
 
         // Global
-        compile_sdk = 30
+        compile_sdk = 31
         build_tools = "30.0.3"
         min_sdk = 23
         target_sdk = 30
