@@ -1,40 +1,74 @@
 package com.android.ravn.dargueta.ui.main
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import com.android.ravn.dargueta.R
+import com.android.ravn.dargueta.ui.list.PeopleListViewModel
+import com.android.ravn.domain.model.Person
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContent {
+            PeopleListScreen()
+        }
+//        setContentView(R.layout.activity_main)
+//
+//        (supportFragmentManager.findFragmentById(R.id.nav_host_main) as NavHostFragment)
+//            .let { navHost ->
+//                val navController = navHost.navController
+//                val config = AppBarConfiguration(navController.graph)
+//                findViewById<Toolbar>(R.id.toolbar_main)
+//                    .setupWithNavController(navController, config)
+//            }
+    }
+}
 
-        (supportFragmentManager.findFragmentById(R.id.nav_host_main) as NavHostFragment)
-            .let { navHost ->
-                val navController = navHost.navController
-                val config = AppBarConfiguration(navController.graph)
-                findViewById<Toolbar>(R.id.toolbar_main)
-                    .setupWithNavController(navController, config)
-            }
+@Composable
+fun PeopleListScreen(
+    modifier: Modifier = Modifier,
+    viewModel: PeopleListViewModel = viewModel()
+) {
+    val people = viewModel.people.collectAsLazyPagingItems()
+    Scaffold(modifier = modifier) {
+        PeopleList(people = people)
+    }
+}
+
+@Composable
+fun PeopleList(modifier: Modifier = Modifier, people: LazyPagingItems<Person>) {
+    LazyColumn(modifier = modifier) {
+        items(people) { person ->
+
+            val species = person?.species ?: stringResource(R.string.unknown_species)
+            val planet = person?.homeWorld ?: stringResource(R.string.unknown_planet)
+            val description = stringResource(R.string.person_description, species, planet)
+
+            PersonItem(name = person?.name ?: "", description = description)
+        }
     }
 }
 
