@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,11 +21,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.android.ravn.dargueta.R
+import com.android.ravn.dargueta.ui.detail.DetailScreen
 import com.android.ravn.dargueta.ui.list.PeopleListViewModel
 import com.android.ravn.domain.model.Person
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,35 +41,49 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            PeopleOfStarWarsTheme {
-                PeopleListScreen()
+            PeopleOfStarWarsApp()
+        }
+    }
+}
+
+@Composable
+fun PeopleOfStarWarsApp() {
+    PeopleOfStarWarsTheme {
+        val navController = rememberNavController()
+        NavHost(navController = navController, startDestination = "list") {
+            composable("list") {
+                PeopleListScreen(
+                    onPersonCLick = { navController.navigate("details") }
+                )
+            }
+            composable("details") {
+                DetailScreen()
             }
         }
-//        setContentView(R.layout.activity_main)
-//
-//        (supportFragmentManager.findFragmentById(R.id.nav_host_main) as NavHostFragment)
-//            .let { navHost ->
-//                val navController = navHost.navController
-//                val config = AppBarConfiguration(navController.graph)
-//                findViewById<Toolbar>(R.id.toolbar_main)
-//                    .setupWithNavController(navController, config)
-//            }
     }
 }
 
 @Composable
 fun PeopleListScreen(
     modifier: Modifier = Modifier,
-    viewModel: PeopleListViewModel = viewModel()
+    viewModel: PeopleListViewModel = hiltViewModel(),
+    onPersonCLick: () -> Unit = {}
 ) {
     val people = viewModel.people.collectAsLazyPagingItems()
     Scaffold(modifier = modifier) {
-        PeopleList(people = people)
+        PeopleList(
+            people = people,
+            onPersonCLick = onPersonCLick
+        )
     }
 }
 
 @Composable
-fun PeopleList(modifier: Modifier = Modifier, people: LazyPagingItems<Person>) {
+fun PeopleList(
+    modifier: Modifier = Modifier,
+    people: LazyPagingItems<Person>,
+    onPersonCLick: () -> Unit
+) {
     LazyColumn(modifier = modifier) {
         items(people) { person ->
 
@@ -72,7 +91,11 @@ fun PeopleList(modifier: Modifier = Modifier, people: LazyPagingItems<Person>) {
             val planet = person?.homeWorld ?: stringResource(R.string.unknown_planet)
             val description = stringResource(R.string.person_description, species, planet)
 
-            PersonItem(name = person?.name ?: "", description = description)
+            PersonItem(
+                name = person?.name ?: "",
+                description = description,
+                onCLick = onPersonCLick
+            )
             Divider(
                 modifier = Modifier.padding(
                     start = dimensionResource(R.dimen.item_text_margin),
@@ -86,18 +109,25 @@ fun PeopleList(modifier: Modifier = Modifier, people: LazyPagingItems<Person>) {
 }
 
 @Composable
-fun PersonItem(modifier: Modifier = Modifier, name: String, description: String) {
+fun PersonItem(
+    modifier: Modifier = Modifier,
+    name: String,
+    description: String,
+    onCLick: () -> Unit = {}
+) {
     ConstraintLayout(modifier = modifier) {
         val (column, image) = createRefs()
 
         Column(
-            modifier = Modifier.constrainAs(column) {
-                top.linkTo(parent.top)
-                start.linkTo(parent.start)
-                bottom.linkTo(parent.bottom)
-                end.linkTo(image.start)
-                width = Dimension.preferredWrapContent
-            }
+            modifier = Modifier
+                .clickable { onCLick.invoke() }
+                .constrainAs(column) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                    bottom.linkTo(parent.bottom)
+                    end.linkTo(image.start)
+                    width = Dimension.preferredWrapContent
+                }
         ) {
             Text(
                 modifier = Modifier
