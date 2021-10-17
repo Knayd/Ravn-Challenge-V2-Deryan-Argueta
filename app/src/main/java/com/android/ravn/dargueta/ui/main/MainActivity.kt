@@ -1,5 +1,6 @@
 package com.android.ravn.dargueta.ui.main
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -25,13 +26,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.android.ravn.dargueta.R
 import com.android.ravn.dargueta.ui.detail.DetailScreen
 import com.android.ravn.dargueta.ui.list.PeopleListViewModel
+import com.android.ravn.dargueta.ui.navparams.PersonParamType
 import com.android.ravn.domain.model.Person
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 //TODO: Move dp values into a separate file and fix colors
@@ -53,11 +57,20 @@ fun PeopleOfStarWarsApp() {
         NavHost(navController = navController, startDestination = "list") {
             composable("list") {
                 PeopleListScreen(
-                    onPersonCLick = { navController.navigate("details") }
+                    onPersonCLick = { person ->
+                        val personParam = Uri.encode(Gson().toJson(person))
+                        navController.navigate("details/$personParam")
+                    }
                 )
             }
-            composable("details") {
-                DetailScreen()
+            composable(route = "details/{person}", arguments = listOf(
+                navArgument("person") {
+                    type = PersonParamType()
+                }
+            )) {
+                it.arguments?.getParcelable<Person>("person")?.let { person ->
+                    DetailScreen(person = person)
+                }
             }
         }
     }
@@ -67,7 +80,7 @@ fun PeopleOfStarWarsApp() {
 fun PeopleListScreen(
     modifier: Modifier = Modifier,
     viewModel: PeopleListViewModel = hiltViewModel(),
-    onPersonCLick: () -> Unit = {}
+    onPersonCLick: (person: Person) -> Unit = {}
 ) {
     val people = viewModel.people.collectAsLazyPagingItems()
     Scaffold(modifier = modifier) {
@@ -82,28 +95,24 @@ fun PeopleListScreen(
 fun PeopleList(
     modifier: Modifier = Modifier,
     people: LazyPagingItems<Person>,
-    onPersonCLick: () -> Unit
+    onPersonCLick: (person: Person) -> Unit
 ) {
     LazyColumn(modifier = modifier) {
         items(people) { person ->
-
-            val species = person?.species ?: stringResource(R.string.unknown_species)
-            val planet = person?.homeWorld ?: stringResource(R.string.unknown_planet)
-            val description = stringResource(R.string.person_description, species, planet)
-
-            PersonItem(
-                name = person?.name ?: "",
-                description = description,
-                onCLick = onPersonCLick
-            )
-            Divider(
-                modifier = Modifier.padding(
-                    start = dimensionResource(R.dimen.item_text_margin),
-                    end = dimensionResource(R.dimen.item_text_margin)
-                ),
-                color = MaterialTheme.colors.primary,
-                thickness = dimensionResource(R.dimen.item_divider_thickness)
-            )
+            person?.let {
+                PersonItem(
+                    person = person,
+                    onCLick = onPersonCLick
+                )
+                Divider(
+                    modifier = Modifier.padding(
+                        start = dimensionResource(R.dimen.item_text_margin),
+                        end = dimensionResource(R.dimen.item_text_margin)
+                    ),
+                    color = MaterialTheme.colors.primary,
+                    thickness = dimensionResource(R.dimen.item_divider_thickness)
+                )
+            }
         }
     }
 }
@@ -111,16 +120,20 @@ fun PeopleList(
 @Composable
 fun PersonItem(
     modifier: Modifier = Modifier,
-    name: String,
-    description: String,
-    onCLick: () -> Unit = {}
+    person: Person,
+    onCLick: (person: Person) -> Unit = {}
 ) {
-    ConstraintLayout(modifier = modifier) {
+    ConstraintLayout(
+        modifier = modifier.clickable { onCLick(person) }
+    ) {
         val (column, image) = createRefs()
+
+        val species = person.species ?: stringResource(R.string.unknown_species)
+        val planet = person.homeWorld ?: stringResource(R.string.unknown_planet)
+        val description = stringResource(R.string.person_description, species, planet)
 
         Column(
             modifier = Modifier
-                .clickable { onCLick.invoke() }
                 .constrainAs(column) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
@@ -138,7 +151,7 @@ fun PersonItem(
                     )
                     .fillMaxWidth(),
                 style = MaterialTheme.typography.h6,
-                text = name
+                text = person.name ?: ""
             )
             Text(
                 modifier = Modifier
@@ -172,5 +185,9 @@ fun PersonItem(
 @Preview(showBackground = true)
 @Composable
 fun PersonItemPreview() {
-    PersonItem(Modifier, "Luke Skywalker", "Unknown species from Tatooine")
+    PersonItem(
+        Modifier, Person(
+            null, "Luke Skywalker", null, null, null, null, "Human", "Tatooine", null
+        )
+    )
 }
