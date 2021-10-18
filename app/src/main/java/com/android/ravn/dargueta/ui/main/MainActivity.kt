@@ -106,8 +106,7 @@ fun PeopleList(
                 )
                 Divider(
                     modifier = Modifier.padding(
-                        start = dimensionResource(R.dimen.item_text_margin),
-                        end = dimensionResource(R.dimen.item_text_margin)
+                        start = dimensionResource(R.dimen.item_text_margin)
                     ),
                     color = MaterialTheme.colors.primary,
                     thickness = dimensionResource(R.dimen.item_divider_thickness)
