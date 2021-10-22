@@ -49,6 +49,9 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.android.ravn.dargueta.R
+import com.android.ravn.dargueta.ui.Screens.Details
+import com.android.ravn.dargueta.ui.Screens.Details.NavArgs.PERSON
+import com.android.ravn.dargueta.ui.Screens.List
 import com.android.ravn.dargueta.ui.detail.DetailScreen
 import com.android.ravn.dargueta.ui.list.PeopleListViewModel
 import com.android.ravn.dargueta.ui.navparams.PersonParamType
@@ -136,23 +139,25 @@ fun PeopleOfStarWarsNavHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = "list"
+        startDestination = List.route
     ) {
-        composable("list") {
+        composable(route = List.route) {
             PeopleListScreen(
                 onSetTitle = onSetTitle,
                 onPersonCLick = { person ->
-                    val personParam = Uri.encode(Gson().toJson(person))
-                    navController.navigate("details/$personParam")
+                    val personArg = Uri.encode(Gson().toJson(person))
+                    navController.navigate("${Details.route}/$personArg")
                 }
             )
         }
-        composable(route = "details/{person}", arguments = listOf(
-            navArgument("person") {
-                type = PersonParamType()
-            }
-        )) { stackEntry ->
-            stackEntry.arguments?.getParcelable<Person>("person")?.let { person ->
+        composable(
+            route = "${Details.route}/{${PERSON.arg}}",
+            arguments = listOf(
+                navArgument(PERSON.arg) {
+                    type = PersonParamType()
+                }
+            )) { stackEntry ->
+            stackEntry.arguments?.getParcelable<Person>(PERSON.arg)?.let { person ->
                 DetailScreen(
                     onSetTitle = onSetTitle,
                     person = person
