@@ -26,9 +26,11 @@ import com.android.ravn.domain.model.Person
 fun DetailScreen(
     modifier: Modifier = Modifier,
     person: Person,
-    viewModel: PersonDetailViewModel = hiltViewModel()
+    viewModel: PersonDetailViewModel = hiltViewModel(),
+    onSetTitle: (title: String) -> Unit = {}
 ) {
     LazyColumn(modifier = modifier) {
+        onSetTitle(person.name ?: "")
         items(viewModel.getTextRows(person)) { row ->
             when (row) {
                 is TextRow.Title -> DetailItemHeader(title = row.text)

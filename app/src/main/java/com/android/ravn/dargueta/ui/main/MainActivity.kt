@@ -4,25 +4,43 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -54,23 +72,91 @@ class MainActivity : AppCompatActivity() {
 fun PeopleOfStarWarsApp() {
     PeopleOfStarWarsTheme {
         val navController = rememberNavController()
-        NavHost(navController = navController, startDestination = "list") {
-            composable("list") {
-                PeopleListScreen(
-                    onPersonCLick = { person ->
-                        val personParam = Uri.encode(Gson().toJson(person))
-                        navController.navigate("details/$personParam")
+        var title by remember { mutableStateOf("") }
+        var canPop by remember { mutableStateOf(false) }
+
+        navController.addOnDestinationChangedListener { controller, _, _ ->
+            canPop = controller.previousBackStackEntry != null
+        }
+
+        Scaffold(
+            topBar = {
+                PeopleOfStarWarsTopAppBar(
+                    navigationIconVisible = canPop,
+                    onNavigationIconClick = { navController.popBackStack() },
+                    title = title
+                )
+            },
+        ) {
+            PeopleOfStarWarsNavHost(
+                navController = navController,
+                onSetTitle = { title = it }
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalAnimationApi::class)
+@Composable
+fun PeopleOfStarWarsTopAppBar(
+    modifier: Modifier = Modifier,
+    title: String,
+    onNavigationIconClick: () -> Unit,
+    navigationIconVisible: Boolean
+) {
+    TopAppBar(modifier = modifier) {
+        Row {
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.high) {
+                AnimatedVisibility(visible = navigationIconVisible) {
+                    IconButton(onClick = onNavigationIconClick) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = null
+                        )
                     }
+                }
+                Text(
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .padding(start = 16.dp),
+                    style = MaterialTheme.typography.h6,
+                    text = title
                 )
             }
-            composable(route = "details/{person}", arguments = listOf(
-                navArgument("person") {
-                    type = PersonParamType()
+        }
+    }
+}
+
+@Composable
+fun PeopleOfStarWarsNavHost(
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
+    onSetTitle: (title: String) -> Unit
+) {
+    NavHost(
+        modifier = modifier,
+        navController = navController,
+        startDestination = "list"
+    ) {
+        composable("list") {
+            PeopleListScreen(
+                onSetTitle = onSetTitle,
+                onPersonCLick = { person ->
+                    val personParam = Uri.encode(Gson().toJson(person))
+                    navController.navigate("details/$personParam")
                 }
-            )) {
-                it.arguments?.getParcelable<Person>("person")?.let { person ->
-                    DetailScreen(person = person)
-                }
+            )
+        }
+        composable(route = "details/{person}", arguments = listOf(
+            navArgument("person") {
+                type = PersonParamType()
+            }
+        )) { stackEntry ->
+            stackEntry.arguments?.getParcelable<Person>("person")?.let { person ->
+                DetailScreen(
+                    onSetTitle = onSetTitle,
+                    person = person
+                )
             }
         }
     }
@@ -80,15 +166,16 @@ fun PeopleOfStarWarsApp() {
 fun PeopleListScreen(
     modifier: Modifier = Modifier,
     viewModel: PeopleListViewModel = hiltViewModel(),
-    onPersonCLick: (person: Person) -> Unit = {}
+    onPersonCLick: (person: Person) -> Unit = {},
+    onSetTitle: (title: String) -> Unit = {}
 ) {
+    onSetTitle(stringResource(id = R.string.app_name))
     val people = viewModel.people.collectAsLazyPagingItems()
-    Scaffold(modifier = modifier) {
-        PeopleList(
-            people = people,
-            onPersonCLick = onPersonCLick
-        )
-    }
+    PeopleList(
+        modifier = modifier,
+        people = people,
+        onPersonCLick = onPersonCLick
+    )
 }
 
 @Composable
